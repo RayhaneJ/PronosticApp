@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.speech.RecognitionListener;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -35,28 +36,57 @@ public class DbUnitTest {
 
     @Test
     public void createUserDbTest(){
-        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "JEBBARI", "Rayhane", Role.Admin));
+        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "fake", "JEBBARI", "Rayhane", Role.Admin));
         Assert.assertNotNull(rowId);
     }
 
     @Test
     public void getUserDbTest(){
-        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "JEBBARI", "Rayhane", Role.Admin));
+        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "fake","JEBBARI", "Rayhane", Role.Admin));
         User user = ctx.getUser("jebbarirayhane@gmail.com");
         Assert.assertNotNull(user);
     }
 
     @Test
     public void deleteUserDbTest(){
-        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "JEBBARI", "Rayhane", Role.Admin));
+        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "fake","JEBBARI", "Rayhane", Role.Admin));
         int deletedRows = ctx.deleteUser(rowId);
         Assert.assertEquals(1, deletedRows);
     }
 
     @Test
     public void updateUserDbTest(){
-        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "JEBBARI", "Rayhane", Role.Admin));
-        int count = ctx.updateUser(new User(rowId, "jebbarirayhane@gmail.com", "JEANLOUIS", "Rayhane", Role.Admin));
+        long rowId = ctx.insertUser(new User("jebbarirayhane@gmail.com", "fake",  "JEBBARI", "Rayhane", Role.Admin));
+        int count = ctx.updateUser(new User(rowId, "jebbarirayhane@gmail.com", "fake", "JEANLOUIS", "Rayhane", Role.Admin));
+        Assert.assertEquals(1, count);
+    }
+
+    @Test
+    public void createRencontreDbTest(){
+        long rowId = ctx.insertRencontre(new Rencontre("match", "20/10/2004", "Ligue 1", "PSG", "LYON", "PSG"));
+        Assert.assertNotNull(rowId);
+    }
+
+    @Test
+    public void getAllRecontreDbTest(){
+        ctx.insertRencontre(new Rencontre("match1", "20/10/2004", "Ligue 1", "PSG", "LYON", "PSG"));
+        ctx.insertRencontre(new Rencontre("match2", "20/10/2004", "Ligue 1", "PSG", "MARSEILLE", "PSG"));
+        List<Rencontre> rencontres = ctx.getAllRecontre();
+        Assert.assertEquals(2, rencontres.size());
+    }
+
+    @Test
+    public void deleteRecontreDbTest(){
+        Rencontre rencontre = new Rencontre("match1", "20/10/2004", "Ligue 1", "PSG", "LYON", "PSG");
+        Long rowId = ctx.insertRencontre(rencontre);
+        int deletedRows = ctx.deleteRencontre(rowId);
+        Assert.assertEquals(1, deletedRows);
+    }
+
+    @Test
+    public void updateRecontreDbTest(){
+        long rowId = ctx.insertRencontre(new Rencontre("match", "20/10/2004", "Ligue 1", "PSG", "LYON", "PSG"));
+        int count = ctx.updateRencontre(new Rencontre(rowId,"match3", "20/10/2004", "Ligue 1", "BASTIA", "LYON", "PSG"));
         Assert.assertEquals(1, count);
     }
 }
