@@ -76,6 +76,7 @@
 
     <RelativeLayout
         android:id="@+id/AjouterRencontre_RelativeLayoutChampionnat"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp">
@@ -123,41 +124,39 @@
             android:layout_toEndOf="@id/AjouterRencontre_DateTextView"/>
     </RelativeLayout>
 
-
     <RelativeLayout
-        android:id="@+id/AjouterRencontre_RelativeLayoutEquipeFavorite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp">
+    android:id="@+id/AjouterRencontre_LayoutEquipeFavorite"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25sp">
 
-        <TextView
-            android:id="@+id/AjouterRencontre_EquipeFavoriteTextView"
+    <TextView
+        android:id="@+id/AjouterRencontre_Equipe2FavoriteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="22sp"
+        android:text="Equipe favorite:" />
+
+    <RadioGroup
+        android:id="@+id/AjouterRencontre_EquipeFavoriteRadioGroupe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toEndOf="@+id/AjouterRencontre_Equipe2FavoriteTextView">
+
+        <RadioButton
+            android:id="@+id/AjouterRencontre_EquipeFavoriteRadioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="22sp"
-            android:text="Equipe favorite:" />
-
-        <RadioGroup
-            android:id="@+id/AjouterRencontre_EquipeFavoriteRadioGroupe"
-            android:layout_width="match_parent"
+            android:text="1"/>
+        <RadioButton
+            android:id="@+id/AjouterRencontre_EquipeFavoriteRadioButton2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/AjouterRencontre_EquipeFavoriteTextView"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/AjouterRencontre_EquipeFavoriteRadioButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"/>
+            android:text="2"/>
 
-            <RadioButton
-                android:id="@+id/AjouterRencontre_EquipeFavoriteRadioButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2" />
-
-        </RadioGroup>
-
+    </RadioGroup>
     </RelativeLayout>
 
     <Button
@@ -171,6 +170,18 @@
         android:text="Confirmer"
         android:onClick="AddRencontre"/>
 
-    <include layout="@layout/content_admin" />
+
+
+
+<include layout="@layout/content_admin" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        android:contentDescription="@string/app_name" />
 
 </LinearLayout>
