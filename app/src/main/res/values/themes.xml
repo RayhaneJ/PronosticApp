@@ -3,4 +3,13 @@
     <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight">
 
     </style>
+
+    <style name="Theme.PronosticApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.PronosticApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.PronosticApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
