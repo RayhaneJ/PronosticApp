@@ -8,7 +8,6 @@ public class Rencontre {
     private String equipeLocal;
     private String equipeVisiteur;
     private String equipeFavorite;
-
     public Rencontre() {}
 
     public Rencontre(String nom, String date, String championnat, String equipeLocal, String equipeVisiteur, String equipeFavorite) {
