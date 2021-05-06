@@ -123,7 +123,7 @@ public class PronosticDbContext {
         return db.delete(RencontreContract.RecontreEntry.TABLE_NAME, selection, selectionArgs);
     }
 
-    public List<Rencontre> getAllRecontre(){
+    public List<Rencontre> getAllRencontre(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {

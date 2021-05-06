@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -60,16 +61,23 @@ public class AjouterRencontre extends AppCompatActivity {
 
     }
 
-
+    //Méthode qui va ajouter une rencontre dans la base de données
     public void AddRencontre(View v) {
-        if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Veuillez choisir une équipe favorite", Toast.LENGTH_SHORT).show();
+        //Structure conditionnelle qui vérifie que l'on a bien rempli tous les champs
+        if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == -1
+                || TextUtils.isEmpty(Date.getText().toString())
+                || TextUtils.isEmpty(Championnat.getText().toString())
+                || TextUtils.isEmpty(Equipe_Locale.getText().toString())
+                || TextUtils.isEmpty(Equipe_Visiteuse.getText().toString())){
+            Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
         } else {
+            //Récupération de l'information de l'équipe favorite choisie
             if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == R.id.AjouterRencontre_EquipeFavoriteRadioButton1) {
                 Equipe_Favorite_Choisie = Equipe_Locale.getText().toString();
             } else {
                 Equipe_Favorite_Choisie = Equipe_Visiteuse.getText().toString();
             }
+            //Création d'un objet Rencontre
             Rencontre = new Rencontre("rencontre_" + i,
                     Date.getText().toString(),
                     Championnat.getText().toString(),
@@ -77,6 +85,7 @@ public class AjouterRencontre extends AppCompatActivity {
                     Equipe_Visiteuse.getText().toString(),
                     Equipe_Favorite_Choisie);
 
+            //Insertion de la rencontre dans la base de données
             long insertion = DbContext.insertRencontre(Rencontre);
             if (insertion == -1) {
                 Toast.makeText(this, "Erreur, La rencontre n'a pas pu être ajoutée", Toast.LENGTH_SHORT).show();
