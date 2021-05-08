@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.speech.SpeechRecognizer;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +124,7 @@ public class PronosticDbContext {
         return db.delete(RencontreContract.RecontreEntry.TABLE_NAME, selection, selectionArgs);
     }
 
-    public List<Rencontre> getAllRecontre(){
+    public ArrayList<Rencontre> getAllRecontre(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -145,7 +146,7 @@ public class PronosticDbContext {
                 null,                   // don't filter by row groups
                 null);
 
-        List rencontres = new ArrayList<Rencontre>();
+        ArrayList rencontres = new ArrayList<Rencontre>();
         while(cursor.moveToNext()) {
             long rencontreId = cursor.getLong(
                     cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry._ID));

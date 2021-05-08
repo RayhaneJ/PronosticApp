@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Bridge">
+        <!-- Add attributes here -->
+    </style>
+
+    <style name="MyApp" parent="Theme.AppCompat.DayNight">
+        <!-- Add attributes here -->
+    </style>
+</resources>
