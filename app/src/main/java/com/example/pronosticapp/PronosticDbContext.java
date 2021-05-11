@@ -189,4 +189,50 @@ public class PronosticDbContext {
                 selection,
                 selectionArgs);
     }
+
+    public Rencontre getRencontre(int id) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {
+                BaseColumns._ID,
+                RencontreContract.RecontreEntry.COLUMN_NAME_NOM,
+                RencontreContract.RecontreEntry.COLUMN_NAME_DATE,
+                RencontreContract.RecontreEntry.COLUMN_NAME_CHAMPIONNAT,
+                RencontreContract.RecontreEntry.COLUMN_NAME_EQUIPE_LOC,
+                RencontreContract.RecontreEntry.COLUMN_NAME_EQUIPE_VIS,
+                RencontreContract.RecontreEntry.COLUMN_NAME_EQUIPE_FAV,
+        };
+
+        String selection = RencontreContract.RecontreEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        Cursor cursor = db.query(
+                RencontreContract.RecontreEntry.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null
+        );
+
+        cursor.moveToFirst();
+
+        long ID = cursor.getLong(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry._ID));
+        String date = cursor.getString(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry.COLUMN_NAME_DATE));
+        String championnat = cursor.getString(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry.COLUMN_NAME_CHAMPIONNAT));
+        String nom = cursor.getString(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry.COLUMN_NAME_NOM));
+        String equipe_locale = cursor.getString(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry.COLUMN_NAME_EQUIPE_LOC));
+        String equipe_visiteuse = cursor.getString(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry.COLUMN_NAME_EQUIPE_VIS));
+        String equipe_favorite = cursor.getString(
+                cursor.getColumnIndexOrThrow(RencontreContract.RecontreEntry.COLUMN_NAME_EQUIPE_FAV));
+
+        return new Rencontre(ID,nom, date, championnat, equipe_locale,equipe_visiteuse,equipe_favorite);
+    }
 }

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ModifierRencontre">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.PronosticApp.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#B50707"
+            android:text="@string/Pronostic"
+            android:visibility="visible"
+            app:popupTheme="@style/Theme.PronosticApp.PopupOverlay"
+            tools:visibility="visible" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/ModifierRencontre_RelativeLayoutEquipe1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ModifierRencontre_Equipe1TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Equipe locale:"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/ModifierRencontre_Equipe1EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_toEndOf="@+id/ModifierRencontre_Equipe1TextView" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ModifierRencontre_RelativeLayoutEquipe2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/ModifierRencontre_Equipe2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="22sp"
+            android:text="Equipe visiteuse:"/>
+
+        <EditText
+            android:id="@+id/ModifierRencontre_Equipe2EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toEndOf="@+id/ModifierRencontre_Equipe2TextView"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ModifierRencontre_RelativeLayoutChampionnat"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/ModifierRencontre_ChampionnatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="22sp"
+            android:text="Compétition:"/>
+
+        <EditText
+            android:id="@+id/ModifierRencontre_ChampionnatEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toEndOf="@+id/ModifierRencontre_ChampionnatTextView"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ModifierRencontre_RelativeLayoutDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25sp">
+
+        <TextView
+            android:id="@+id/ModifierRencontre_DateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="22sp"
+            android:text="Date et heure:" />
+
+        <EditText
+            android:id="@+id/ModifierRencontre_DatEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:inputType="datetime"
+            android:layout_toEndOf="@id/ModifierRencontre_DateTextView"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ModifierRencontre_LayoutEquipeFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25sp">
+
+        <TextView
+            android:id="@+id/ModifierRencontre_Equipe2FavoriteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="22sp"
+            android:text="Equipe favorite:" />
+
+        <RadioGroup
+            android:id="@+id/ModifierRencontre_EquipeFavoriteRadioGroupe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toEndOf="@+id/ModifierRencontre_Equipe2FavoriteTextView">
+
+            <RadioButton
+                android:id="@+id/ModifierRencontre_EquipeFavoriteRadioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"/>
+            <RadioButton
+                android:id="@+id/ModifierRencontre_EquipeFavoriteRadioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"/>
+
+        </RadioGroup>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/ModifierRencontre_ConfirmerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25sp"
+        android:textSize="22sp"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:text="Modifier"
+        android:onClick="UpdateRencontre"/>
+
+
+
+
+    <include layout="@layout/content_admin" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        android:contentDescription="@string/app_name" />
+
+</LinearLayout>
