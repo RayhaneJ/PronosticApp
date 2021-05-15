@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".PronosticsListView">
         </activity>
+        <activity android:name=".ModifierRencontre">
+        </activity>
     </application>
 
 </manifest>
