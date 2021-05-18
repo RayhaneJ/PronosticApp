@@ -10,6 +10,13 @@ public class User {
 
     public User() {}
 
+    public User(String email,String motDePasse, String nom, String prenom) {
+        this.email = email;
+        this.motDePasse = motDePasse;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
     public User(String email,String motDePasse, String nom, String prenom, Role role) {
         this.email = email;
         this.motDePasse = motDePasse;
@@ -49,5 +56,21 @@ public class User {
 
     public String getMotDePasse() {
         return motDePasse;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setMdp(String motDePasse){
+        this.motDePasse = motDePasse;
+    }
+
+    public void setPrenom(String prenom){
+        this.prenom = prenom;
+    }
+
+    public void setNom(String nom){
+        this.nom = nom;
     }
 }
