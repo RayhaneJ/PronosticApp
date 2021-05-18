@@ -5,11 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -41,18 +36,21 @@ public class Pronostics extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 Rencontre rencontre = pronosticDbContext.getRencontre((int)data.getLongExtra("rencontreIdToUpdate", 0));
-                for(int i = 0; i< rencontres.size(); i++){
-                    if(rencontres.get(i).getId() == rencontre.getId()){
-                        rencontres.set(i, rencontre);
-                    }
-                }
+                refreshPronostics(rencontre);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
 
+            }
+        }
+    }
+
+    private void refreshPronostics(Rencontre rencontre) {
+        for(int i = 0; i< rencontres.size(); i++){
+            if(rencontres.get(i).getId() == rencontre.getId()){
+                rencontres.set(i, rencontre);
             }
         }
     }

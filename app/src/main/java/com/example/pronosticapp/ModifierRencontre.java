@@ -14,22 +14,18 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class ModifierRencontre extends AppCompatActivity {
-
-
-    //Déclaration des attributs de la classe qui correspondent aux éléments XML qui nous intéresse
-    int i = 0;
-    EditText Equipe_Locale;
-    EditText Equipe_Visiteuse;
-    EditText Championnat;
-    EditText Date;
-    RadioGroup Equipe_favoriteRadioGroup;
-    RadioButton Equipe1;
-    RadioButton Equipe2;
-    String Equipe_Favorite_Choisie;
-    Button Confirmer;
-    Rencontre rencontre;
-    long idToUpdate;
-    PronosticDbContext DbContext;
+    private PronosticDbContext DbContext;
+    private long idToUpdate;
+    private EditText equipe_Locale;
+    private EditText equipe_Visiteuse;
+    private EditText championnat;
+    private EditText date;
+    private RadioGroup equipe_favoriteRadioGroup;
+    private RadioButton equipe1;
+    private RadioButton equipe2;
+    private String equipe_Favorite_Choisie;
+    private Button confirmer;
+    private Rencontre rencontre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,43 +38,43 @@ public class ModifierRencontre extends AppCompatActivity {
         idToUpdate = intent.getLongExtra("rencontreId", 0);
         Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
 
-        Equipe_Locale = (EditText) findViewById(R.id.ModifierRencontre_Equipe1EditText);
-        Equipe_Visiteuse = (EditText) findViewById(R.id.ModifierRencontre_Equipe2EditText);
-        Championnat = (EditText) findViewById(R.id.ModifierRencontre_ChampionnatEditText);
-        Date = (EditText) findViewById(R.id.ModifierRencontre_DatEditText);
-        Equipe_favoriteRadioGroup = (RadioGroup) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioGroupe);
-        Equipe1 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton1);
-        Equipe2 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton2);
-        Confirmer = (Button) findViewById(R.id.ModifierRencontre_ConfirmerButton);
+        equipe_Locale = (EditText) findViewById(R.id.ModifierRencontre_Equipe1EditText);
+        equipe_Visiteuse = (EditText) findViewById(R.id.ModifierRencontre_Equipe2EditText);
+        championnat = (EditText) findViewById(R.id.ModifierRencontre_ChampionnatEditText);
+        date = (EditText) findViewById(R.id.ModifierRencontre_DatEditText);
+        equipe_favoriteRadioGroup = (RadioGroup) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioGroupe);
+        equipe1 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton1);
+        equipe2 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton2);
+        confirmer = (Button) findViewById(R.id.ModifierRencontre_ConfirmerButton);
 
-        Equipe_Locale.setText(Amodifier.getEquipeLocal());
-        Equipe_Visiteuse.setText(Amodifier.getEquipeVisiteur());
-        Championnat.setText(Amodifier.getChampionnat());
-        Date.setText(Amodifier.getDate());
+        equipe_Locale.setText(Amodifier.getEquipeLocal());
+        equipe_Visiteuse.setText(Amodifier.getEquipeVisiteur());
+        championnat.setText(Amodifier.getChampionnat());
+        date.setText(Amodifier.getDate());
     }
 
     public void UpdateRencontre(View v) {
         DbContext= new PronosticDbContext(this);
         Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
-        if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == -1
-                || TextUtils.isEmpty(Date.getText().toString())
-                || TextUtils.isEmpty(Championnat.getText().toString())
-                || TextUtils.isEmpty(Equipe_Locale.getText().toString())
-                || TextUtils.isEmpty(Equipe_Visiteuse.getText().toString())) {
+        if (equipe_favoriteRadioGroup.getCheckedRadioButtonId() == -1
+                || TextUtils.isEmpty(date.getText().toString())
+                || TextUtils.isEmpty(championnat.getText().toString())
+                || TextUtils.isEmpty(equipe_Locale.getText().toString())
+                || TextUtils.isEmpty(equipe_Visiteuse.getText().toString())) {
             Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
         } else {
-            if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == R.id.AjouterRencontre_EquipeFavoriteRadioButton1) {
-                Equipe_Favorite_Choisie = Equipe_Locale.getText().toString();
+            if (equipe_favoriteRadioGroup.getCheckedRadioButtonId() == R.id.AjouterRencontre_EquipeFavoriteRadioButton1) {
+                equipe_Favorite_Choisie = equipe_Locale.getText().toString();
             } else {
-                Equipe_Favorite_Choisie = Equipe_Visiteuse.getText().toString();
+                equipe_Favorite_Choisie = equipe_Visiteuse.getText().toString();
             }
             rencontre = new Rencontre(Amodifier.getId(),
                     Amodifier.getNom(),
-                    Date.getText().toString(),
-                    Championnat.getText().toString(),
-                    Equipe_Locale.getText().toString(),
-                    Equipe_Visiteuse.getText().toString(),
-                    Equipe_Favorite_Choisie);
+                    date.getText().toString(),
+                    championnat.getText().toString(),
+                    equipe_Locale.getText().toString(),
+                    equipe_Visiteuse.getText().toString(),
+                    equipe_Favorite_Choisie);
 
             int modification = DbContext.updateRencontre(rencontre);
 
