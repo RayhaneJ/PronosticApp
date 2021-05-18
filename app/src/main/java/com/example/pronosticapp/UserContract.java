@@ -23,7 +23,6 @@ public final class UserContract {
                     UserEntry.COLUMN_NAME_PRENOM + " TEXT," +
                     UserEntry.COLUMN_NAME_ROLE + " TEXT)";
 
-
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME;
 
