@@ -34,7 +34,7 @@ public class ModifierUser extends AppCompatActivity {
         DbContext= new PronosticDbContext(this);
 
         Intent intent = getIntent();
-        idToUpdate = intent.getStringExtra("Email");
+        idToUpdate = intent.getStringExtra("UserId");
         User Amodifier = DbContext.getUser(idToUpdate);
 
         //Liaison entre les attributs Java et les attributs XML

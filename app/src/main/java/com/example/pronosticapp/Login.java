@@ -3,8 +3,6 @@ package com.example.pronosticapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.CursorIndexOutOfBoundsException;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.SQLException;
-
 public class Login extends AppCompatActivity {
 
 
     private EditText username, password;
     private TextView info;
-    private Button login, signUp;
+    private Button login,signUp;
     private int counter = 5;
     private PronosticDbContext dataDb;
 
@@ -51,23 +47,25 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
+
+
+
 
     private void validate (String userName, String userPassword){
         try {
             User user = dataDb.getUser(userName);
-
+            //On vérifie que l'utilisateur a rentré un bon mot de passe.
             if (user.getMotDePasse().equals(userPassword)) {
-                if (user.getRole() == Role.Admin) {
-                    Intent intent = new Intent(Login.this, SecondActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(Login.this, SecondActivity.class);
-                    startActivity(intent);
-                }
+                    Intent intent = new Intent(Login.this, Pronostics.class);
+                    intent.putExtra("UserId", user.getId());
+                startActivity(intent);
+                Toast.makeText(this, "Bonjour, vous êtes connectés en tant que "+ user.getPrenom(), Toast.LENGTH_SHORT).show();
             }
         }
-        catch (CursorIndexOutOfBoundsException ex){
+        catch (Exception ex){
             counter--;
             info.setText("nb de tentatives :" + String.valueOf(counter));
             if (counter == 0) {

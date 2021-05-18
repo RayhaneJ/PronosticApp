@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
+    android:id="@+id/Layout_ajouterRencontreMain"
     tools:context=".AjouterRencontre">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -170,6 +171,18 @@
         android:backgroundTint="@color/cardview_shadow_start_color"
         android:text="Confirmer"
         android:onClick="AddRencontre"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/AjouterRencontre_ConfirmerButton">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/menu_navigateur"
+            android:layout_alignParentBottom="true">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </RelativeLayout>
 
     <include layout="@layout/content_admin" />
 

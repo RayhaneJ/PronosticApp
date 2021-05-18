@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,10 @@ public class RencontreAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Rencontre> rencontres;
     private LayoutInflater inflater;
+    String idToUpdate;
+    PronosticDbContext DbContext;
+
+
 
     public RencontreAdapter(Context context, ArrayList<Rencontre> rencontres){
         this.context = context;
@@ -46,15 +51,26 @@ public class RencontreAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        /*Intent intent =((Activity) context).getIntent();
+        idToUpdate = intent.getStringExtra("Email");
+        User AdminOrUser = DbContext.getUser(idToUpdate);*/
+
         convertView = inflater.inflate(R.layout.activity_pronostics_list_view, null);
         TextView nomTextView = (TextView)convertView.findViewById(R.id.nom);
         nomTextView.setText(rencontres.get(position).getNom());
+
         TextView equipeLocTextView = (TextView)convertView.findViewById(R.id.equipeLoc);
         equipeLocTextView.setText(rencontres.get(position).getEquipeLocal());
+
         TextView equipeVisTextView = (TextView)convertView.findViewById(R.id.equipeVis);
         equipeVisTextView.setText(rencontres.get(position).getEquipeVisiteur());
+
         TextView equipeFav = (TextView)convertView.findViewById(R.id.equipeFav);
         equipeFav.setText(rencontres.get(position).getEquipeFavorite() + " Vainqueur");
+
+        //Layout qui affiche les boutons Modifier et Supprimer, on les cache si le User n'est pas admin
+        LinearLayout LayoutACacher= (LinearLayout)convertView.findViewById(R.id.RencontreAdapter_LayoutACacherSiSimpleUser);
 
         final Animation animation = AnimationUtils.loadAnimation(parent.getContext(),
                 R.anim.slide_out);
@@ -82,7 +98,6 @@ public class RencontreAdapter extends BaseAdapter {
                 finalConvertView.startAnimation(animation);
             }
         });
-
         Button modifierButton = (Button) convertView.findViewById(R.id.modifier);
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +107,11 @@ public class RencontreAdapter extends BaseAdapter {
                 ((Activity)parent.getContext()).startActivityForResult(intent, 1);
             }
         });
+        /*if(AdminOrUser.getRole()==Role.User){
+            buttonSupprimer.setVisibility(View.INVISIBLE);
+            modifierButton.setVisibility(View.INVISIBLE);
+            LayoutACacher.setVisibility(View.GONE);
+        //}*/
 
         return convertView;
     }

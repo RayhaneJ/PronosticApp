@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ajouterRencontreClick"
+        android:title="Ajouter rencontre"
+        android:icon="@drawable/ic_ajouter_vector"/>
+    <item
+        android:id="@+id/HomeClick"
+        android:title="Menu"
+        android:icon="@drawable/ic_baseline_home_24"/>
+    <item
+        android:id="@+id/ProfilClick"
+        android:title="Mon profil"
+        android:icon="@drawable/ic_baseline_account_circle_24"/>
+
+</menu>
