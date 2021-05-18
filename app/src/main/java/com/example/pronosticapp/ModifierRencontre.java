@@ -42,7 +42,6 @@ public class ModifierRencontre extends AppCompatActivity {
         idToUpdate = intent.getLongExtra("rencontreId", 0);
         Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
 
-        //Liaison entre les attributs Java et les attributs XML
         Equipe_Locale = (EditText) findViewById(R.id.ModifierRencontre_Equipe1EditText);
         Equipe_Visiteuse = (EditText) findViewById(R.id.ModifierRencontre_Equipe2EditText);
         Championnat = (EditText) findViewById(R.id.ModifierRencontre_ChampionnatEditText);
@@ -52,14 +51,12 @@ public class ModifierRencontre extends AppCompatActivity {
         Equipe2 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton2);
         Confirmer = (Button) findViewById(R.id.ModifierRencontre_ConfirmerButton);
 
-        //On remplit les champs par les valeurs de la rencontre que l'on souhaite modifier
         Equipe_Locale.setText(Amodifier.getEquipeLocal());
         Equipe_Visiteuse.setText(Amodifier.getEquipeVisiteur());
         Championnat.setText(Amodifier.getChampionnat());
         Date.setText(Amodifier.getDate());
     }
 
-    //Méthode de mise à jour de rencontre
     public void UpdateRencontre(View v) {
         DbContext= new PronosticDbContext(this);
         Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
@@ -70,13 +67,11 @@ public class ModifierRencontre extends AppCompatActivity {
                 || TextUtils.isEmpty(Equipe_Visiteuse.getText().toString())) {
             Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
         } else {
-            //Récupération de l'information de l'équipe favorite choisie
             if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == R.id.AjouterRencontre_EquipeFavoriteRadioButton1) {
                 Equipe_Favorite_Choisie = Equipe_Locale.getText().toString();
             } else {
                 Equipe_Favorite_Choisie = Equipe_Visiteuse.getText().toString();
             }
-            //Création d'un objet Rencontre
             rencontre = new Rencontre(Amodifier.getId(),
                     Amodifier.getNom(),
                     Date.getText().toString(),
@@ -85,7 +80,6 @@ public class ModifierRencontre extends AppCompatActivity {
                     Equipe_Visiteuse.getText().toString(),
                     Equipe_Favorite_Choisie);
 
-            //Modification de la rencontre dans la base de données
             int modification = DbContext.updateRencontre(rencontre);
 
             if(modification==0){
