@@ -2,6 +2,8 @@ package com.example.pronosticapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,7 +23,9 @@ public class ModifierUser extends AppCompatActivity {
     EditText Mdp;
     Button Confirmer;
     User user;
+    String idToUpdate;
     PronosticDbContext DbContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +33,9 @@ public class ModifierUser extends AppCompatActivity {
 
         DbContext= new PronosticDbContext(this);
 
-        User Amodifier = DbContext.getUser("sefkan@gmail.com");
+        Intent intent = getIntent();
+        idToUpdate = intent.getStringExtra("Email");
+        User Amodifier = DbContext.getUser(idToUpdate);
 
         //Liaison entre les attributs Java et les attributs XML
         Prenom = (EditText) findViewById(R.id.ModifierUser_PrenomEditText);
@@ -69,9 +75,16 @@ public class ModifierUser extends AppCompatActivity {
 
             if(modification==0){
                 Toast.makeText(this, "Aucune modification n'a été enregitrée", Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+                finish();
             }
             else{
                 Toast.makeText(this, "La modification a bien été enregistrée", Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("UserIdToUpdate", Amodifier.getId());
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
         }
     }
