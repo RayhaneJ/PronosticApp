@@ -2,6 +2,8 @@ package com.example.pronosticapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,7 +27,8 @@ public class ModifierRencontre extends AppCompatActivity {
     RadioButton Equipe2;
     String Equipe_Favorite_Choisie;
     Button Confirmer;
-    Rencontre Rencontre;
+    Rencontre rencontre;
+    long idToUpdate;
     PronosticDbContext DbContext;
 
     @Override
@@ -35,7 +38,9 @@ public class ModifierRencontre extends AppCompatActivity {
 
         DbContext= new PronosticDbContext(this);
 
-        Rencontre Amodifier = DbContext.getRencontre(1);
+        Intent intent = getIntent();
+        idToUpdate = intent.getLongExtra("rencontreId", 0);
+        Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
 
         //Liaison entre les attributs Java et les attributs XML
         Equipe_Locale = (EditText) findViewById(R.id.ModifierRencontre_Equipe1EditText);
@@ -57,8 +62,7 @@ public class ModifierRencontre extends AppCompatActivity {
     //Méthode de mise à jour de rencontre
     public void UpdateRencontre(View v) {
         DbContext= new PronosticDbContext(this);
-
-        Rencontre Amodifier = DbContext.getRencontre(1);
+        Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
         if (Equipe_favoriteRadioGroup.getCheckedRadioButtonId() == -1
                 || TextUtils.isEmpty(Date.getText().toString())
                 || TextUtils.isEmpty(Championnat.getText().toString())
@@ -73,7 +77,7 @@ public class ModifierRencontre extends AppCompatActivity {
                 Equipe_Favorite_Choisie = Equipe_Visiteuse.getText().toString();
             }
             //Création d'un objet Rencontre
-            Rencontre = new Rencontre(Amodifier.getId(),
+            rencontre = new Rencontre(Amodifier.getId(),
                     Amodifier.getNom(),
                     Date.getText().toString(),
                     Championnat.getText().toString(),
@@ -82,13 +86,20 @@ public class ModifierRencontre extends AppCompatActivity {
                     Equipe_Favorite_Choisie);
 
             //Modification de la rencontre dans la base de données
-            int modification =DbContext.updateRencontre(Rencontre);
+            int modification = DbContext.updateRencontre(rencontre);
 
             if(modification==0){
                 Toast.makeText(this, "Aucune modification n'a été enregitrée", Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+                finish();
             }
             else{
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("rencontreIdToUpdate", rencontre.getId());
+                setResult(Activity.RESULT_OK, returnIntent);
                 Toast.makeText(this, "La modification a bien été enregistrée", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }
