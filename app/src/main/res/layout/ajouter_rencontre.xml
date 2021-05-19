@@ -174,9 +174,9 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/AjouterRencontre_ConfirmerButton">
+        android:layout_height="wrap_content">
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/NavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/menu_navigateur"

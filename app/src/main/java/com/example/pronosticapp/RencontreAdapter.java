@@ -23,8 +23,10 @@ public class RencontreAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Rencontre> rencontres;
     private LayoutInflater inflater;
-    String idToUpdate;
+    private Intent intent;
     PronosticDbContext DbContext;
+    String IdUser;
+
 
 
 
@@ -52,9 +54,11 @@ public class RencontreAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        /*Intent intent =((Activity) context).getIntent();
-        idToUpdate = intent.getStringExtra("Email");
-        User AdminOrUser = DbContext.getUser(idToUpdate);*/
+
+        /*Intent intent = ((Activity) context).getIntent();
+        IdUser=intent.getStringExtra("UserId");
+        User AdminOrUser = DbContext.getUser(IdUser);*/
+
 
         convertView = inflater.inflate(R.layout.activity_pronostics_list_view, null);
         TextView nomTextView = (TextView)convertView.findViewById(R.id.nom);
@@ -89,6 +93,8 @@ public class RencontreAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
+
+
 
         Button buttonSupprimer = (Button) convertView.findViewById(R.id.supprimer);
         View finalConvertView = convertView;

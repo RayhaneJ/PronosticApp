@@ -1,17 +1,21 @@
 package com.example.pronosticapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ModifierRencontre extends AppCompatActivity {
     private PronosticDbContext DbContext;
@@ -25,16 +29,23 @@ public class ModifierRencontre extends AppCompatActivity {
     private RadioButton equipe2;
     private String equipe_Favorite_Choisie;
     private Button confirmer;
+    private Button Retour;
     private Rencontre rencontre;
+    String IdUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modifier_rencontre);
 
-        DbContext= new PronosticDbContext(this);
 
         Intent intent = getIntent();
+        IdUser = intent.getStringExtra("UserId");
+
+
+        DbContext= new PronosticDbContext(this);
+
         idToUpdate = intent.getLongExtra("rencontreId", 0);
         Rencontre Amodifier = DbContext.getRencontre((int)idToUpdate);
 
@@ -46,11 +57,16 @@ public class ModifierRencontre extends AppCompatActivity {
         equipe1 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton1);
         equipe2 = (RadioButton) findViewById(R.id.ModifierRencontre_EquipeFavoriteRadioButton2);
         confirmer = (Button) findViewById(R.id.ModifierRencontre_ConfirmerButton);
+        Retour= (Button) findViewById(R.id.ModifierRencontre_ReturnButton);
 
         equipe_Locale.setText(Amodifier.getEquipeLocal());
         equipe_Visiteuse.setText(Amodifier.getEquipeVisiteur());
         championnat.setText(Amodifier.getChampionnat());
         date.setText(Amodifier.getDate());
+    }
+
+    public void Retour(View v){
+        finish();
     }
 
     public void UpdateRencontre(View v) {

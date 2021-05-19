@@ -1,10 +1,13 @@
 package com.example.pronosticapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,6 +15,7 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -26,24 +30,85 @@ public class AjouterRencontre extends AppCompatActivity {
 
     //Déclaration des attributs de la classe qui correspondent aux éléments XML qui nous intéresse
     int i=0;
-    EditText Equipe_Locale;
-    EditText Equipe_Visiteuse;
-    EditText Championnat;
-    EditText Date;
-    RadioGroup Equipe_favoriteRadioGroup;
-    RadioButton Equipe1;
-    RadioButton Equipe2;
-    String Equipe_Favorite_Choisie;
-    Button Confirmer;
-    Rencontre Rencontre;
-    PronosticDbContext DbContext;
+    private EditText Equipe_Locale;
+    private EditText Equipe_Visiteuse;
+    private EditText Championnat;
+    private EditText Date;
+    private RadioGroup Equipe_favoriteRadioGroup;
+    private RadioButton Equipe1;
+    private RadioButton Equipe2;
+    private String Equipe_Favorite_Choisie;
+    private Button Confirmer;
+    private Rencontre Rencontre;
+    private PronosticDbContext DbContext;
+    private BottomNavigationView MenuNavigateur;
+    private String IdUser;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajouter_rencontre);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        IdUser = intent.getStringExtra("UserId");
+
+        //Mise en fonction du menu de navigation
+        MenuNavigateur=(BottomNavigationView)findViewById(R.id.NavigationView);
+        MenuNavigateur.setSelectedItemId(R.id.RencontreClick);
+
+        MenuNavigateur.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.RencontreClick:
+                        Intent intent = new Intent(getApplicationContext(), AjouterRencontre.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.HomeClick:
+                        intent = new Intent(getApplicationContext(), Pronostics.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.ProfilClick:
+                        intent = new Intent(getApplicationContext(), ModifierUser.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+        MenuNavigateur.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.RencontreClick:
+                        Intent intent = new Intent(getApplicationContext(), AjouterRencontre.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.HomeClick:
+                        intent = new Intent(getApplicationContext(), Pronostics.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.ProfilClick:
+                        intent = new Intent(getApplicationContext(), ModifierUser.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        break;
+                }
+            }
+        });
 
 
         //Liaison entre les attributs Java et les attributs XML
@@ -92,6 +157,7 @@ public class AjouterRencontre extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "La rencontre a bien été ajoutée", Toast.LENGTH_SHORT).show();
                 i++;
+                finish();
             }
         }
     }

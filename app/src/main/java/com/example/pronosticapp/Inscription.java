@@ -27,12 +27,12 @@ public class Inscription extends AppCompatActivity {
     }
 
     public void addUser(View view){
-        if(dataDb.getUser(email.getText().toString()) == null){
-            User user = new User(email.getText().toString(),motDePasse.getText().toString(),prenom.getText().toString(),nom.getText().toString(), Role.User);
+        //if(dataDb.getUser(email.getText().toString()) == null){
+            User user = new User(email.getText().toString(),motDePasse.getText().toString(),nom.getText().toString(), prenom.getText().toString(), Role.User);
             long id = dataDb.insertUser(user);
-        }
+       /* }
         else{
             Toast.makeText(this, "User déja existant", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 }

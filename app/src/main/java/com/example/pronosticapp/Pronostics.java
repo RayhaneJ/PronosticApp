@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,33 +35,65 @@ public class Pronostics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pronostics);
         setTitle("Rencontres");
-        MenuNavigateur=(BottomNavigationView)findViewById(R.id.NavigationView);
 
         Intent intent = getIntent();
         IdUser = intent.getStringExtra("UserId");
 
+        //Mise en fonction du menu de navigation
+        MenuNavigateur=(BottomNavigationView)findViewById(R.id.NavigationView);
         MenuNavigateur.setSelectedItemId(R.id.HomeClick);
-
-        //Intent intent = new Intent(this, AjouterRencontre.class);
 
         MenuNavigateur.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
-                    case R.id.ajouterRencontreClick:
+                    case R.id.RencontreClick:
                         Intent intent = new Intent(getApplicationContext(), AjouterRencontre.class);
+                        intent.putExtra("UserId", IdUser);
                         startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.HomeClick:
                         intent = new Intent(getApplicationContext(), Pronostics.class);
+                        intent.putExtra("UserId", IdUser);
                         startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
                     case R.id.ProfilClick:
                         intent = new Intent(getApplicationContext(), ModifierUser.class);
                         intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }
         });
-
+        MenuNavigateur.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.RencontreClick:
+                        Intent intent = new Intent(getApplicationContext(), AjouterRencontre.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.HomeClick:
+                        intent = new Intent(getApplicationContext(), Pronostics.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        break;
+                    case R.id.ProfilClick:
+                        intent = new Intent(getApplicationContext(), ModifierUser.class);
+                        intent.putExtra("UserId", IdUser);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        break;
+                }
+            }
+        });
 
         pronosticDbContext = new PronosticDbContext(getApplicationContext());
         rencontres = new ArrayList<>();
@@ -73,6 +106,7 @@ public class Pronostics extends AppCompatActivity {
         rencontresListView = (ListView)findViewById(R.id.rencontresListView);
         rencontreAdapter = new RencontreAdapter(getApplicationContext(), rencontres);
         rencontresListView.setAdapter(rencontreAdapter);
+
     }
 
     @Override

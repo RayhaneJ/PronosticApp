@@ -168,7 +168,16 @@
         android:backgroundTint="@color/cardview_shadow_start_color"
         android:text="Modifier"
         android:onClick="UpdateRencontre"/>
-
+        <Button
+            android:id="@+id/ModifierRencontre_ReturnButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25sp"
+            android:textSize="22sp"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:text="Retour"
+            android:onClick="Retour"/>
 
 
 

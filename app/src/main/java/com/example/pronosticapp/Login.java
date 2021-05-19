@@ -60,7 +60,7 @@ public class Login extends AppCompatActivity {
             //On vérifie que l'utilisateur a rentré un bon mot de passe.
             if (user.getMotDePasse().equals(userPassword)) {
                     Intent intent = new Intent(Login.this, Pronostics.class);
-                    intent.putExtra("UserId", user.getId());
+                    intent.putExtra("UserId", user.getEmail());
                 startActivity(intent);
                 Toast.makeText(this, "Bonjour, vous êtes connectés en tant que "+ user.getPrenom(), Toast.LENGTH_SHORT).show();
             }
