@@ -29,7 +29,7 @@ public class Login extends AppCompatActivity {
         login = (Button) findViewById(R.id.btLogin);
         signUp = (Button) findViewById(R.id.btInscription);
         dataDb = new PronosticDbContext(getApplicationContext());
-        dataDb.insertUser(new User("gui","okok","Guillaume","WURM",Role.Admin));
+        dataDb.insertUser(new User(150,"ok","ok","Guillaume","WURM",Role.Admin));
         info.setText("nb de tentatives : 5");
 
 
@@ -56,11 +56,11 @@ public class Login extends AppCompatActivity {
 
     private void validate (String userName, String userPassword){
         try {
-            User user = dataDb.getUser(userName);
+            User user = dataDb.getUserLogin(userName);
             //On vérifie que l'utilisateur a rentré un bon mot de passe.
             if (user.getMotDePasse().equals(userPassword)) {
                     Intent intent = new Intent(Login.this, Pronostics.class);
-                    intent.putExtra("UserId", user.getEmail());
+                    intent.putExtra("UserId",user.getId());
                 startActivity(intent);
                 Toast.makeText(this, "Bonjour, vous êtes connectés en tant que "+ user.getPrenom(), Toast.LENGTH_SHORT).show();
             }

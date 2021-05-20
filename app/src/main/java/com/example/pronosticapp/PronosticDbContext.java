@@ -60,7 +60,7 @@ public class PronosticDbContext {
                 selectionArgs);
     }
 
-    public User getUser(String email){
+    public User getUserLogin(String email){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -89,6 +89,49 @@ public class PronosticDbContext {
 
         long id = cursor.getLong(
                 cursor.getColumnIndexOrThrow(UserContract.UserEntry._ID));
+        String password = cursor.getString(
+                cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD));
+        String nom = cursor.getString(
+                cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_NOM));
+        String prenom = cursor.getString(
+                cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PRENOM));
+        String role = cursor.getString(
+                cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_ROLE));
+
+        return new User(id, email, password, nom, prenom, Role.valueOf(role));
+    }
+
+    public User getUser(long Id){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {
+                BaseColumns._ID,
+                UserContract.UserEntry.COLUMN_NAME_MAIL,
+                UserContract.UserEntry.COLUMN_NAME_PASSWORD,
+                UserContract.UserEntry.COLUMN_NAME_NOM,
+                UserContract.UserEntry.COLUMN_NAME_PRENOM,
+                UserContract.UserEntry.COLUMN_NAME_ROLE
+        };
+
+        String selection = UserContract.UserEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(Id)};
+
+        Cursor cursor = db.query(
+                UserContract.UserEntry.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null
+        );
+
+        cursor.moveToFirst();
+
+        long id = cursor.getLong(
+                cursor.getColumnIndexOrThrow(UserContract.UserEntry._ID));
+        String email = cursor.getString(
+                cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_MAIL));
         String password = cursor.getString(
                 cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD));
         String nom = cursor.getString(

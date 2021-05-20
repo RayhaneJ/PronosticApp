@@ -31,7 +31,6 @@ public class ModifierRencontre extends AppCompatActivity {
     private Button confirmer;
     private Button Retour;
     private Rencontre rencontre;
-    String IdUser;
 
 
     @Override
@@ -41,7 +40,6 @@ public class ModifierRencontre extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        IdUser = intent.getStringExtra("UserId");
 
 
         DbContext= new PronosticDbContext(this);

@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+import static java.util.Objects.isNull;
+
 public class Pronostics extends AppCompatActivity {
     private Context context;
     private ListView rencontresListView;
@@ -27,8 +31,8 @@ public class Pronostics extends AppCompatActivity {
     private ArrayList<Rencontre> rencontres;
     private RencontreAdapter rencontreAdapter;
     private BottomNavigationView MenuNavigateur;
-    PronosticDbContext DbContext;
-    String IdUser;
+    private long IdUser;
+    Menu RencontreItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,10 @@ public class Pronostics extends AppCompatActivity {
         setContentView(R.layout.activity_pronostics);
         setTitle("Rencontres");
 
+        //Récupération de l'id du User connecté
         Intent intent = getIntent();
-        IdUser = intent.getStringExtra("UserId");
+        IdUser = intent.getLongExtra("UserId",0);
+
 
         //Mise en fonction du menu de navigation
         MenuNavigateur=(BottomNavigationView)findViewById(R.id.NavigationView);
@@ -96,6 +102,16 @@ public class Pronostics extends AppCompatActivity {
         });
 
         pronosticDbContext = new PronosticDbContext(getApplicationContext());
+
+        //Si le user n'est pas un admin, on enlève la fonctionnalité de suppression//
+        User AdminOrUser = pronosticDbContext.getUser(IdUser);
+        if(AdminOrUser.getRole()==Role.User) {
+            MenuNavigateur.getMenu().
+                    findItem(R.id.RencontreClick)
+                    .setVisible(false);
+        }
+
+        // Instanciation des rencontres en dur -> A modifier
         rencontres = new ArrayList<>();
         long id1 = pronosticDbContext.insertRencontre(new Rencontre("Rencontre des titans", "10/20/09", "Ligue des champions", "PSG", "Lyon", "PSG"));
         long id2 = pronosticDbContext.insertRencontre(new Rencontre("Rencontre des null", "10/20/09", "Ligue des null", "Lyon", "PSG", "Lyon"));
@@ -104,7 +120,7 @@ public class Pronostics extends AppCompatActivity {
         rencontres.add(new Rencontre(id2, "Rencontre des null", "10/20/09", "Ligue des null", "Lyon", "PSG", "Lyon"));
         rencontres.add(new Rencontre(id3, "Rencontre des mandarins", "10/20/09", "Ligue des mandarins", "Lille", "Lyon", "Lyon"));
         rencontresListView = (ListView)findViewById(R.id.rencontresListView);
-        rencontreAdapter = new RencontreAdapter(getApplicationContext(), rencontres);
+        rencontreAdapter = new RencontreAdapter(getApplicationContext(), rencontres, new Intent().putExtra("UserId",IdUser));
         rencontresListView.setAdapter(rencontreAdapter);
 
     }

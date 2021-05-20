@@ -29,7 +29,7 @@ public class ModifierUser extends AppCompatActivity {
     private User user;
     private PronosticDbContext DbContext;
     private BottomNavigationView MenuNavigateur;
-    private String IdUser;
+    private long IdUser;
 
 
 
@@ -39,11 +39,12 @@ public class ModifierUser extends AppCompatActivity {
         setContentView(R.layout.modifier_user);
 
         Intent intent = getIntent();
-        IdUser = intent.getStringExtra("UserId");
+        IdUser = intent.getLongExtra("UserId",0);
 
         //Mise en fonction du menu de navigation
         MenuNavigateur=(BottomNavigationView)findViewById(R.id.NavigationView);
         MenuNavigateur.setSelectedItemId(R.id.ProfilClick);
+
 
         MenuNavigateur.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -148,7 +149,7 @@ public class ModifierUser extends AppCompatActivity {
                 MenuNavigateur.setSelectedItemId(R.id.HomeClick);
                 Toast.makeText(this, "La modification a bien été enregistrée", Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("UserId", Amodifier.getId());
+                returnIntent.putExtra("UserId",IdUser);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }

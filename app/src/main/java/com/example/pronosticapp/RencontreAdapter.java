@@ -25,14 +25,15 @@ public class RencontreAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Intent intent;
     PronosticDbContext DbContext;
-    String IdUser;
+    private long IdUser;
 
 
 
 
-    public RencontreAdapter(Context context, ArrayList<Rencontre> rencontres){
+    public RencontreAdapter(Context context, ArrayList<Rencontre> rencontres, Intent intent){
         this.context = context;
         this.rencontres = rencontres;
+        this.intent=intent;
         inflater = (LayoutInflater.from(context));
     }
 
@@ -55,9 +56,9 @@ public class RencontreAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
 
-        /*Intent intent = ((Activity) context).getIntent();
-        IdUser=intent.getStringExtra("UserId");
-        User AdminOrUser = DbContext.getUser(IdUser);*/
+        IdUser=intent.getLongExtra("UserId",0);
+        DbContext= new PronosticDbContext(context);
+        User AdminOrUser = DbContext.getUser(IdUser);
 
 
         convertView = inflater.inflate(R.layout.activity_pronostics_list_view, null);
@@ -113,11 +114,11 @@ public class RencontreAdapter extends BaseAdapter {
                 ((Activity)parent.getContext()).startActivityForResult(intent, 1);
             }
         });
-        /*if(AdminOrUser.getRole()==Role.User){
+        if(AdminOrUser.getRole()==Role.User){
             buttonSupprimer.setVisibility(View.INVISIBLE);
             modifierButton.setVisibility(View.INVISIBLE);
             LayoutACacher.setVisibility(View.GONE);
-        //}*/
+        }
 
         return convertView;
     }

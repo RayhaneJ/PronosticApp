@@ -42,7 +42,7 @@ public class AjouterRencontre extends AppCompatActivity {
     private Rencontre Rencontre;
     private PronosticDbContext DbContext;
     private BottomNavigationView MenuNavigateur;
-    private String IdUser;
+    private long IdUser;
 
 
 
@@ -52,7 +52,7 @@ public class AjouterRencontre extends AppCompatActivity {
         setContentView(R.layout.ajouter_rencontre);
 
         Intent intent = getIntent();
-        IdUser = intent.getStringExtra("UserId");
+        IdUser = intent.getLongExtra("UserId",0);
 
         //Mise en fonction du menu de navigation
         MenuNavigateur=(BottomNavigationView)findViewById(R.id.NavigationView);
