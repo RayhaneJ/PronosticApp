@@ -124,6 +124,14 @@ public class AjouterRencontre extends AppCompatActivity {
 
         DbContext= new PronosticDbContext(this);
 
+        //Si le user n'est pas un admin, on enlève la fonctionnalité de suppression//
+        User AdminOrUser = DbContext.getUser(IdUser);
+        if(AdminOrUser.getRole()==Role.User) {
+            MenuNavigateur.getMenu().
+                    findItem(R.id.RencontreClick)
+                    .setVisible(false);
+        }
+
     }
 
     //Méthode qui va ajouter une rencontre dans la base de données

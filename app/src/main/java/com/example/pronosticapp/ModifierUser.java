@@ -99,6 +99,15 @@ public class ModifierUser extends AppCompatActivity {
         });
 
         DbContext= new PronosticDbContext(this);
+
+        //Si le user n'est pas un admin, on enlève la fonctionnalité de suppression//
+        User AdminOrUser = DbContext.getUser(IdUser);
+        if(AdminOrUser.getRole()==Role.User) {
+            MenuNavigateur.getMenu().
+                    findItem(R.id.RencontreClick)
+                    .setVisible(false);
+        }
+
         User Amodifier = DbContext.getUser(IdUser);
 
         //Liaison entre les attributs Java et les attributs XML
