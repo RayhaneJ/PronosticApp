@@ -80,15 +80,24 @@ public class Login extends AppCompatActivity {
 
     private void validate (String userName, String userPassword){
         try {
-            User user = dataDb.getUser(userName);
-            if (user.getMotDePasse().equals(userPassword)) {
+            User user = dataDb.getUserLogin(userName);
+            if (!user.getMotDePasse().equals(userPassword)) {
+                counter--;
+                info.setText("nb de tentatives :" + String.valueOf(counter));
+                if (counter == 0) {
+                    login.setEnabled(false);
+                }
+            }
+            else{
                 if (user.getRole() == Role.Admin) {
-                    Toast.makeText(this, " Bonjour "+ userName +" vous etes connecté en tant qu'admin", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, " Bonjour "+ userName +" vous êtes connecté en tant qu'admin", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login.this, Pronostics.class);
+                    intent.putExtra("UserId",user.getId());
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, " Bonjour "+ userName +" vous etes connecté", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, " Bonjour "+ userName +" vous êtes connecté", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login.this, Pronostics.class);
+                    intent.putExtra("UserId",user.getId());
                     startActivity(intent);
                 }
             }

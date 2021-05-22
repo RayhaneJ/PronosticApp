@@ -57,7 +57,7 @@ public class Inscription extends AppCompatActivity {
     public void addUser(View view) {
         try{
             if (!TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(motDePasse.getText().toString()) && !TextUtils.isEmpty(prenom.getText().toString()) && !TextUtils.isEmpty(nom.getText().toString())) {
-                dataDb.getUser(email.getText().toString()); // lance l'exception
+                dataDb.getUserLogin(email.getText().toString()); // lance l'exception
                 Toast.makeText(this, "User déja existant", Toast.LENGTH_SHORT).show();
             }
             else{
