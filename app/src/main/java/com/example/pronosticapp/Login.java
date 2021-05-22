@@ -41,6 +41,7 @@ public class Login extends AppCompatActivity {
         showpassword = findViewById(R.id.cbShowPassword);
         dataDb = new PronosticDbContext(getApplicationContext());
         dataDb.insertUser(new User("gui","okok","Guillaume","WURM",Role.Admin));
+        dataDb.insertUser(new User("gui3","ok","Guillaume","WURM",Role.User));
         info.setText("nb de tentatives : 5");
 
         showpassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -83,11 +84,11 @@ public class Login extends AppCompatActivity {
             if (user.getMotDePasse().equals(userPassword)) {
                 if (user.getRole() == Role.Admin) {
                     Toast.makeText(this, " Bonjour "+ userName +" vous etes connecté en tant qu'admin", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Login.this, SecondActivity.class);
+                    Intent intent = new Intent(Login.this, Pronostics.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, " Bonjour "+ userName +" vous etes connecté", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Login.this, SecondActivity.class);
+                    Intent intent = new Intent(Login.this, Pronostics.class);
                     startActivity(intent);
                 }
             }
