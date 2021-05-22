@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +27,7 @@ public class Login extends AppCompatActivity {
     private Button login, signUp;
     private int counter = 5;
     private PronosticDbContext dataDb;
+    private CheckBox showpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +38,33 @@ public class Login extends AppCompatActivity {
         info = (TextView) findViewById(R.id.textView);
         login = (Button) findViewById(R.id.btLogin);
         signUp = (Button) findViewById(R.id.btInscription);
+        showpassword = findViewById(R.id.cbShowPassword);
         dataDb = new PronosticDbContext(getApplicationContext());
         dataDb.insertUser(new User("gui","okok","Guillaume","WURM",Role.Admin));
         info.setText("nb de tentatives : 5");
 
+        showpassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate(username.getText().toString(), password.getText().toString());
+                if(!TextUtils.isEmpty(username.getText().toString()) && !TextUtils.isEmpty(password.getText().toString()) ){
+                    validate(username.getText().toString(), password.getText().toString());
+                }
+                else{
+                    controleValidate();
+                }
+
             }
         });
 
@@ -56,12 +80,13 @@ public class Login extends AppCompatActivity {
     private void validate (String userName, String userPassword){
         try {
             User user = dataDb.getUser(userName);
-
             if (user.getMotDePasse().equals(userPassword)) {
                 if (user.getRole() == Role.Admin) {
+                    Toast.makeText(this, " Bonjour "+ userName +" vous etes connecté en tant qu'admin", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login.this, SecondActivity.class);
                     startActivity(intent);
                 } else {
+                    Toast.makeText(this, " Bonjour "+ userName +" vous etes connecté", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login.this, SecondActivity.class);
                     startActivity(intent);
                 }
@@ -74,5 +99,9 @@ public class Login extends AppCompatActivity {
                 login.setEnabled(false);
             }
         }
+    }
+
+    private void controleValidate(){
+        Toast.makeText(this, "veuillez saisir tous les champs", Toast.LENGTH_LONG).show();
     }
 }
