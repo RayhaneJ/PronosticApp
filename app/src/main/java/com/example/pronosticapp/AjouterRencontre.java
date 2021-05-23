@@ -44,13 +44,14 @@ public class AjouterRencontre extends AppCompatActivity {
     private BottomNavigationView MenuNavigateur;
     private long IdUser;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajouter_rencontre);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Ajouter Rencontre");
         Intent intent = getIntent();
         IdUser = intent.getLongExtra("UserId",0);
 
