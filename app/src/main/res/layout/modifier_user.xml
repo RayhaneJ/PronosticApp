@@ -136,7 +136,8 @@
     <LinearLayout android:id="@+id/linearLayout1"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_marginTop="19dp" android:layout_marginHorizontal="7dp">
+        android:layout_marginTop="19dp"
+        android:layout_marginHorizontal="7dp">
     <Button
         android:id="@+id/ModifierUser_ConfirmerButton"
         android:layout_weight="1"
@@ -145,19 +146,28 @@
         android:textSize="22sp"
         android:text="Modifier"
         android:onClick="UpdateUser"/>
-    </LinearLayout>
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/ModifierUser_LogoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30sp"
-        android:textSize="22sp"
-        android:backgroundTint="@color/cardview_shadow_start_color"
-        android:text="Se déconnecter"
-        android:onClick="LogoutUser"/>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="19dp"
+            android:layout_marginHorizontal="7dp">
+            <Button
+                android:id="@+id/ModifierUser_LogoutButton"
+                android:layout_weight="1"
+                android:layout_height="50sp"
+                android:layout_width="0dp"
+                android:textSize="22sp"
+                android:text="Se déconnecter"
+                android:onClick="LogoutUser"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
 
 
     <RelativeLayout
