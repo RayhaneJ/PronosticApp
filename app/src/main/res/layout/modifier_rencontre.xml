@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context=".ModifierRencontre">
+    tools:context=".ModifierRencontre" android:background="#efefef">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.PronosticApp.AppBarOverlay">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#B50707"
-            android:text="@string/Pronostic"
+            android:text="Modifier Rencontre"
             android:visibility="visible"
             app:popupTheme="@style/Theme.PronosticApp.PopupOverlay"
             tools:visibility="visible" />
-
     </com.google.android.material.appbar.AppBarLayout>
+
+<LinearLayout android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content" android:gravity="center"
+    android:layout_centerVertical="true" >
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/stroke_color"
+        app:cardElevation="3dp" android:background="#d05ce3">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"  android:layout_marginVertical="19dp" android:layout_marginHorizontal="14dp">
 
     <RelativeLayout
         android:id="@+id/ModifierRencontre_RelativeLayoutEquipe1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/ModifierRencontre_Equipe1TextView"
@@ -156,40 +167,33 @@
                 android:text="2"/>
 
         </RadioGroup>
-    </RelativeLayout>
 
-    <Button
-        android:id="@+id/ModifierRencontre_ConfirmerButton"
-        android:layout_width="wrap_content"
+    </RelativeLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <LinearLayout android:id="@+id/linearLayout1"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="25sp"
-        android:textSize="22sp"
-        android:backgroundTint="@color/cardview_shadow_start_color"
-        android:text="Modifier"
-        android:onClick="UpdateRencontre"/>
+        android:layout_width="fill_parent"
+        android:layout_marginTop="19dp" android:layout_marginHorizontal="7dp">
+        <Button
+            android:id="@+id/ModifierRencontre_ConfirmerButton"
+            android:text="Modifier"
+            android:layout_weight="1"
+            android:layout_height="50sp"
+            android:layout_width="0dp"
+            android:textSize="22sp"
+            android:onClick="Retour" android:layout_margin="7dp"/>
         <Button
             android:id="@+id/ModifierRencontre_ReturnButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25sp"
+            android:layout_margin="7dp"
+            android:layout_weight="1"
             android:textSize="22sp"
-            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_height="50sp"
+            android:layout_width="0dp"
             android:text="Retour"
             android:onClick="Retour"/>
-
-
-
-    <include layout="@layout/content_admin" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        android:contentDescription="@string/app_name" />
-
+    </LinearLayout>
 </LinearLayout>
+</RelativeLayout>

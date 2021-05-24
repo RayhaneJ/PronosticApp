@@ -90,12 +90,12 @@ public class Login extends AppCompatActivity {
             }
             else{
                 if (user.getRole() == Role.Admin) {
-                    Toast.makeText(this, " Bonjour "+ userName +" vous êtes connecté en tant qu'admin", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Connecté - Role : Admin", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login.this, Pronostics.class);
                     intent.putExtra("UserId",user.getId());
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, " Bonjour "+ userName +" vous êtes connecté", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Connecté", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login.this, Pronostics.class);
                     intent.putExtra("UserId",user.getId());
                     startActivity(intent);
