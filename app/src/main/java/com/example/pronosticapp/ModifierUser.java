@@ -165,4 +165,11 @@ public class ModifierUser extends AppCompatActivity {
         }
     }
 
+    public void LogoutUser(View v){
+        Intent intent = new Intent(getApplicationContext(), Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        Toast.makeText(this, "Vous vous êtes bien déconnecté", Toast.LENGTH_SHORT).show();
+
+    }
 }

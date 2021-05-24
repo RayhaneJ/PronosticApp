@@ -134,6 +134,18 @@
         android:text="Modifier"
         android:onClick="UpdateUser"/>
 
+    <Button
+        android:id="@+id/ModifierUser_LogoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30sp"
+        android:textSize="22sp"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:text="Se déconnecter"
+        android:onClick="LogoutUser"/>
+
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
